@@ -30,6 +30,7 @@ module.exports = {
     },
     rules: {
       'linebreak-style': 'off',
+      "react/prop-types": 0,
       'prettier/prettier': [
         'error',
         {
