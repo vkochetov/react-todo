@@ -25,6 +25,14 @@ export const reducer = (state: State, { type, payload }: Action): State => {
           (todo: Todo): boolean => todo.id !== payload.id
         ),
       };
+    case types.DONE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map(
+          (todo: Todo): Todo =>
+            todo.id === payload.id ? { ...todo, isDone: true } : todo
+        ),
+      };
     default:
       return state;
   }

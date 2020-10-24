@@ -2,33 +2,52 @@ import React, { useReducer, useState } from "react";
 import nextId from "react-id-generator";
 import { reducer, initialState } from "./store";
 import TodoList from "./TodoList";
+import ControlPanel from "./ControlPanel";
 import "./App.css";
 import { Todo } from "./interfaces";
 
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [idForRemove, setIdForRemove] = useState("");
+  const [title, setTitle] = useState("");
+  const [discription, setDiscription] = useState("");
 
   const addTodo = (): void => {
     dispatch({
       type: "ADD_TODO",
       payload: {
-        title: "todo",
-        discription: "discription",
+        title,
+        discription,
         isDone: false,
         id: nextId(),
       },
     });
+    setTitle("");
+    setDiscription("");
   };
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setIdForRemove(e.target.value);
+  const doneTodo = (todo: Todo): void => {
+    dispatch({
+      type: "DONE_TODO",
+      payload: {
+        ...todo,
+      },
+    });
   };
 
-  const removeTodo = (): void => {
+  const handleSetTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTitle(e.target.value);
+  };
+
+  const handleSetDiscription = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setDiscription(e.target.value);
+  };
+
+  const removeTodo = (id: string): void => {
     dispatch({
       type: "REMOVE_TODO",
-      payload: { id: idForRemove, title: "", discription: "", isDone: false },
+      payload: { id, title: "", discription: "", isDone: false },
     });
   };
 
@@ -37,20 +56,24 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <button type="button" onClick={addTodo}>
-        Add todo
-      </button>
-      <input
-        placeholder="Insert id for remove"
-        value={idForRemove}
-        onChange={handleChangeInput}
+      <ControlPanel
+        addTodo={addTodo}
+        title={title}
+        discription={discription}
+        handleSetTitle={handleSetTitle}
+        handleSetDiscription={handleSetDiscription}
       />
-      <button type="button" onClick={removeTodo}>
-        Remove todo
-      </button>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <TodoList todos={state.todos.filter(isDoneComparator(true))} />
-        <TodoList todos={state.todos.filter(isDoneComparator(false))} />
+        <TodoList
+          todos={state.todos.filter(isDoneComparator(true))}
+          removeTodo={removeTodo}
+          doneTodo={doneTodo}
+        />
+        <TodoList
+          todos={state.todos.filter(isDoneComparator(false))}
+          removeTodo={removeTodo}
+          doneTodo={doneTodo}
+        />
       </div>
     </div>
   );
