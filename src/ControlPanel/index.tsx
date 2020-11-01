@@ -1,6 +1,7 @@
 import React from "react";
 import { ControlPanelProps } from "./interfaces";
 import "./style.css";
+
 const ControlPanel: React.FC<ControlPanelProps> = ({
   addTodo,
   handleSetTitle,
