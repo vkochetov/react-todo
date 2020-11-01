@@ -1,4 +1,12 @@
 .App {
   text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
 }
 
+.todoListContainer {
+  flex: 1;
+  display: flex;
+}

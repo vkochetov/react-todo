@@ -1,6 +1,6 @@
 import React from "react";
 import { ControlPanelProps } from "./interfaces";
-
+import "./style.css";
 const ControlPanel: React.FC<ControlPanelProps> = ({
   addTodo,
   handleSetTitle,
@@ -9,7 +9,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   discription,
 }) => {
   return (
-    <>
+    <div className="controlPanel">
       <input
         placeholder="Insert title"
         value={title}
@@ -23,7 +23,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <button type="button" onClick={addTodo}>
         Add todo
       </button>
-    </>
+    </div>
   );
 };
 

@@ -12,6 +12,8 @@ const App: React.FC = () => {
   const [discription, setDiscription] = useState("");
 
   const addTodo = (): void => {
+    if (!title || !discription) return;
+
     dispatch({
       type: "ADD_TODO",
       payload: {
@@ -21,6 +23,7 @@ const App: React.FC = () => {
         id: nextId(),
       },
     });
+
     setTitle("");
     setDiscription("");
   };
@@ -63,14 +66,17 @@ const App: React.FC = () => {
         handleSetTitle={handleSetTitle}
         handleSetDiscription={handleSetDiscription}
       />
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        className="todoListContainer"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         <TodoList
-          todos={state.todos.filter(isDoneComparator(true))}
+          todos={state.todos.filter(isDoneComparator(false))}
           removeTodo={removeTodo}
           doneTodo={doneTodo}
         />
         <TodoList
-          todos={state.todos.filter(isDoneComparator(false))}
+          todos={state.todos.filter(isDoneComparator(true))}
           removeTodo={removeTodo}
           doneTodo={doneTodo}
         />

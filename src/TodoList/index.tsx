@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import TodoItem from "./TodoItem";
 import { Todo } from "../interfaces";
+import "./style.css";
 
 const TodoList: React.FC<{
   todos: Array<Todo>;
@@ -18,7 +19,7 @@ const TodoList: React.FC<{
     />
   );
 
-  return <ul>{todos.map(renderTodo)}</ul>;
+  return <ul className="todosColumn">{todos.map(renderTodo)}</ul>;
 };
 
 export default TodoList;
